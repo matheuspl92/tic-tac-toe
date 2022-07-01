@@ -5,7 +5,7 @@ const playerFactory = (name, type, marker) => {
 
 const board = (function () {
     const boardArray = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-    
+
     return {
 
         get: () => {return boardArray},
@@ -20,7 +20,47 @@ const board = (function () {
             console.log("BOARD CLEAR");
         },
 
-        isOccupied: (position) => {return boardArray[position] !== 0}
+        isOccupied: (position) => {return boardArray[position] !== 0},
+
+        checkWinner: () => {
+
+        // Array index order |0 1 2|
+        //                   |3 4 5|
+        //                   |6 7 8|
+            console.log("ENTERED CHECK");
+
+            if(boardArray[0]){
+                if(boardArray[0]===boardArray[1] && boardArray[0]===boardArray[2]){return boardArray[0]}
+                if(boardArray[0]===boardArray[3] && boardArray[0]===boardArray[6]){return boardArray[0]}
+                if(boardArray[0]===boardArray[4] && boardArray[0]===boardArray[8]){return boardArray[0]}
+            }
+
+            if(boardArray[1]){
+                if(boardArray[1]===boardArray[4] && boardArray[1]===boardArray[7]){return boardArray[1]}
+            }
+
+            if(boardArray[2]){
+                if(boardArray[2]===boardArray[5] && boardArray[2]===boardArray[8]){return boardArray[2]}
+                if(boardArray[2]===boardArray[4] && boardArray[2]===boardArray[6]){return boardArray[2]}
+            }
+
+            if(boardArray[3]){
+                if(boardArray[3]===boardArray[4] && boardArray[3]===boardArray[5]){return boardArray[3]}
+            }
+
+            if(boardArray[6]){
+                if(boardArray[6]===boardArray[7] && boardArray[6]===boardArray[8]){return boardArray[6]}
+            }
+
+            //check for empty positions
+            for (let i = 0; i < boardArray.length; i++) {
+                if(!boardArray[i]){return 0}
+            }
+
+            //if none is found
+            return "draw";
+
+        }
         
     };
 })();
@@ -43,11 +83,15 @@ const game = (function () {
             for(let i = 0; i < 9; i++) {
                 if(i%2 === 0){
                     _moveHuman(player1);
+                    console.log(board.checkWinner());
                 } else {
                     _moveHuman(player2);
+                    console.log(board.checkWinner());
                 }
             }
         }
+
+        
     };
 
     return {
