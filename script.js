@@ -19,23 +19,33 @@ const board = (function () {
             }
             console.log("BOARD CLEAR");
         },
+
+        isOccupied: (position) => {return boardArray[position] !== 0}
         
     };
 })();
 
 const game = (function () {
 
-    const _move = (marker) => {
-        board.set(marker, prompt("Which position?"));
+    const _moveHuman = (player) => {
+        const position = prompt(`${player.name}, what is your move?`);
+        if(board.isOccupied(position)){
+            _moveHuman(player);
+        } else {
+            board.set(player.marker, position);
+        }
         console.log(board.get());
     };
 
     const _round = (player1, player2) => {
-        for(let i = 0; i < 9; i++) {
-            if(i%2 === 0){
-                _move(player1.marker);
-            } else {
-                _move(player2.marker);
+
+        if(player2.type === "human"){
+            for(let i = 0; i < 9; i++) {
+                if(i%2 === 0){
+                    _moveHuman(player1);
+                } else {
+                    _moveHuman(player2);
+                }
             }
         }
     };
