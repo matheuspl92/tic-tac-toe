@@ -27,7 +27,6 @@ const board = (function () {
         // Array index order |0 1 2|
         //                   |3 4 5|
         //                   |6 7 8|
-            console.log("ENTERED CHECK");
 
             if(boardArray[0]){
                 if(boardArray[0]===boardArray[1] && boardArray[0]===boardArray[2]){return boardArray[0]}
@@ -85,7 +84,7 @@ const game = (function () {
                     if(_checkScore(player1)){return};
                 } else {
                     _moveHuman(player2);
-                    if(_checkScore(player1)){return};
+                    if(_checkScore(player2)){return};
                 }
             }
         }
