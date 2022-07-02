@@ -22,7 +22,7 @@ const board = (function () {
 
         isOccupied: (position) => {return boardArray[position] !== 0},
 
-        checkWinner: () => {
+        checkState: () => {
 
         // Array index order |0 1 2|
         //                   |3 4 5|
@@ -78,20 +78,25 @@ const game = (function () {
     };
 
     const _round = (player1, player2) => {
-
         if(player2.type === "human"){
             for(let i = 0; i < 9; i++) {
                 if(i%2 === 0){
                     _moveHuman(player1);
-                    console.log(board.checkWinner());
+                    if(_checkScore(player1)){return};
                 } else {
                     _moveHuman(player2);
-                    console.log(board.checkWinner());
+                    if(_checkScore(player1)){return};
                 }
             }
         }
+    };
 
-        
+    const _checkScore = (player) => {
+        console.log(`CHECK SCORE: ${board.checkState()}`);
+        if(player.marker === board.checkState()){
+            console.log(`${player.name} wins a round!`);
+            return ++player.score;
+        }
     };
 
     return {
@@ -104,6 +109,8 @@ const game = (function () {
 
             for (let i = 0; i < numberOfWins; i++) {
                 _round(player1, player2);
+                console.log(player1.score);
+                console.log(player2.score);
                 board.clear();
             }
             
