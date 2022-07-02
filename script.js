@@ -81,10 +81,10 @@ const game = (function () {
             for(let i = 0; i < 9; i++) {
                 if(i%2 === 0){
                     _moveHuman(player1);
-                    if(_checkScore(player1)){return};
+                    if(_checkScore(player1)){return player1};
                 } else {
                     _moveHuman(player2);
-                    if(_checkScore(player2)){return};
+                    if(_checkScore(player2)){return player2};
                 }
             }
         }
@@ -100,14 +100,23 @@ const game = (function () {
 
     return {
         start: () => {
+            board.clear();
             const player1 = playerFactory(prompt("Player 1 name:", "Player 1"), "human", "x");
             const player2 = playerFactory(prompt("Player 2 name:", "Player 2"), "human", "o");
-            const numberOfWins = prompt("How much victories?", 1);
+            const numberOfWins = Number(prompt("How much victories?", 1));
             console.log(player1);
             console.log(player2);
 
-            for (let i = 0; i < numberOfWins; i++) {
-                _round(player1, player2);
+            for (let i = 0; i < 100; i++) {
+                const winner = _round(player1, player2);
+                console.log(typeof winner.score);
+                console.log(typeof numberOfWins);
+                console.log(winner.score === numberOfWins);
+                //FIX! Throws an exception if a draw happens
+                if(winner.score === numberOfWins){
+                    console.log(`${winner.name} HAS WON THE GAME!`);
+                    return;
+                };
                 console.log(player1.score);
                 console.log(player2.score);
                 board.clear();
@@ -117,4 +126,4 @@ const game = (function () {
     };
 })();
 
-game.start();
+this.addEventListener("click", () => {game.start();})
