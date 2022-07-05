@@ -76,19 +76,43 @@ const game = (function () {
         console.log(board.get());
     };
 
+    const _getRandomPosition = () => {
+        min = Math.ceil(0); //Inclusive
+        max = Math.floor(8); //Inclusive
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    const _moveComputer = (player) => {
+        const position = _getRandomPosition();
+        if(board.isOccupied(position)){
+            _moveComputer(player);
+        } else {
+            board.set(player.marker, position);
+        }
+        console.log(board.get());
+
+    };
+
     const _round = (player1, player2) => {
-        if(player2.type === "human"){
-            for(let i = 0; i < 9; i++) {
-                if(i%2 === 0){
-                    _moveHuman(player1);
-                    if(_checkScore(player1)){return player1};
-                } else {
+
+        for(let i = 0; i < 9; i++) {
+            if(i%2 === 0){
+                _moveHuman(player1);
+                if(_checkScore(player1)){return player1};
+            } else {
+                if(player2.type === "human"){
                     _moveHuman(player2);
+                    if(_checkScore(player2)){return player2};
+
+                } else if(player2.type === "computer") {
+                    _moveComputer(player2);
                     if(_checkScore(player2)){return player2};
                 }
             }
         }
-    };
+                
+    }
+
 
     const _checkScore = (player) => {
         console.log(`CHECK SCORE: ${board.checkState()}`);
@@ -102,7 +126,7 @@ const game = (function () {
         start: () => {
             board.clear();
             const player1 = playerFactory(prompt("Player 1 name:", "Player 1"), "human", "x");
-            const player2 = playerFactory(prompt("Player 2 name:", "Player 2"), "human", "o");
+            const player2 = playerFactory(prompt("Player 2 name:", "Player 2"), "computer", "o");
             const numberOfWins = Number(prompt("How much victories?", 1));
             console.log(player1);
             console.log(player2);
