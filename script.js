@@ -109,14 +109,15 @@ const game = (function () {
 
             for (let i = 0; i < 100; i++) {
                 const winner = _round(player1, player2);
-                console.log(typeof winner.score);
-                console.log(typeof numberOfWins);
-                console.log(winner.score === numberOfWins);
-                //FIX! Throws an exception if a draw happens
-                if(winner.score === numberOfWins){
-                    console.log(`${winner.name} HAS WON THE GAME!`);
-                    return;
-                };
+                if (winner) {
+                    console.log(typeof winner.score);
+                    console.log(typeof numberOfWins);
+                    console.log(winner.score === numberOfWins);
+                    if(winner.score === numberOfWins){
+                        console.log(`${winner.name} HAS WON THE GAME!`);
+                        return;
+                    };
+                }
                 console.log(player1.score);
                 console.log(player2.score);
                 board.clear();
