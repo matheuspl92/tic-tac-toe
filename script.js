@@ -1,6 +1,6 @@
-const playerFactory = (name, type, marker) => {
+const playerFactory = (name, type, marker, difficulty) => {
     console.log(`Player ${name} created!`);
-    return {name, type, marker, score: 0}
+    return {name, type, marker, score: 0, difficulty}
 };
 
 const board = (function () {
@@ -8,9 +8,12 @@ const board = (function () {
 
     return {
 
-        get: () => {return boardArray},
+        get: () => {
+            let copy = boardArray.slice();
+            return copy},
 
         set: (marker, position) => {
+            console.log(`BOARD SET: ${marker} : ${position}`)
             boardArray[position] = marker},
 
         clear: () => {
@@ -83,13 +86,145 @@ const game = (function () {
     }
 
     const _moveComputer = (player) => {
-        const position = _getRandomPosition();
-        if(board.isOccupied(position)){
+        if(player.difficulty === "easy"){
+            const position = _getRandomPosition();
+
+            if(board.isOccupied(position)){
+                _moveComputer(player);
+            } else {
+                board.set(player.marker, position);
+            }
+            console.log(board.get());
+
+        } else if(player.difficulty === "unbeatable"){
+            const position = _minimax(false, false, board.get());
+            console.log(`POSITION: ${position}`);
+            board.set(player.marker, position);
+            console.log(board.get());
+        }
+        
+       /* if(board.isOccupied(position)){
             _moveComputer(player);
         } else {
             board.set(player.marker, position);
         }
-        console.log(board.get());
+        console.log(board.get());*/
+
+        //Minimax algorithm auxiliary functions
+        function _score(marker) {
+            if(marker === "x"){return 10;}
+            else if(marker === "o"){return -10;}
+            else {
+                return 0;
+            }
+        };
+
+        function _gameWinner(gameState) {
+
+            if (gameState[0]) {
+                if (gameState[0] === gameState[1] && gameState[0] === gameState[2]) { return gameState[0] }
+                if (gameState[0] === gameState[3] && gameState[0] === gameState[6]) { return gameState[0] }
+                if (gameState[0] === gameState[4] && gameState[0] === gameState[8]) { return gameState[0] }
+            }
+
+            if (gameState[1]) {
+                if (gameState[1] === gameState[4] && gameState[1] === gameState[7]) { return gameState[1] }
+            }
+
+            if (gameState[2]) {
+                if (gameState[2] === gameState[5] && gameState[2] === gameState[8]) { return gameState[2] }
+                if (gameState[2] === gameState[4] && gameState[2] === gameState[6]) { return gameState[2] }
+            }
+
+            if (gameState[3]) {
+                if (gameState[3] === gameState[4] && gameState[3] === gameState[5]) { return gameState[3] }
+            }
+
+            if (gameState[6]) {
+                if (gameState[6] === gameState[7] && gameState[6] === gameState[8]) { return gameState[6] }
+            }
+
+            //check for empty positions
+            for (let i = 0; i < gameState.length; i++) {
+                if (!gameState[i]) { return 0 }
+            }
+
+            //if none is found
+            return "draw";
+
+        };
+
+        function _placeMarker(oldGameState, position, marker) {
+            let newGameState = oldGameState.slice();
+            newGameState[position] = marker;
+            console.log(newGameState);
+            return newGameState;
+        }
+
+        //Minimax algorithm
+        function _minimax(isRecursive, isMaximizing, gameState) {
+            console.log(`ENTERED MINIMAX: ${isMaximizing}`)
+            if(_gameWinner(gameState)){
+                console.log(`GAME SCORE: ${_score(_gameWinner(gameState))}`);
+                return _score(_gameWinner(gameState))}
+
+            let scoreValues = [];
+            let scoreIndexes = [];
+
+            if(isMaximizing){
+                //Generates all possible game states with only one move
+                gameState.forEach( (value, index) => {
+                    if(value === 0){
+                        //Calls minimax again to evaluate each possible game state and stores the scores
+                        scoreValues.push(_minimax(true, false, _placeMarker(gameState, index, "x")));
+                        scoreIndexes.push(index);
+                    }
+                })
+                //Gets best score
+                let best = -Infinity;
+                scoreValues.forEach((value) => {
+                    best = Math.max(best, value);
+                })
+                //Returns a array with the best score and its position
+                console.log(`BEST: ${best}`);
+                console.log(`SCORE VALUES: ${scoreValues}`);
+                //Returns best score if call is recursive or best position if call is NOT recursive
+                if (isRecursive) {
+                    return best;
+                } else {
+                    console.log(`SCORE INDEXES: ${scoreIndexes}`);
+                    return scoreIndexes[scoreValues.indexOf(best)];
+                }
+
+            } else {
+                //Generates all possible game states with only one move
+                gameState.forEach((value, index) => {
+                    if (value === 0) {
+                        //Calls minimax again to evaluate each possible game state and stores the scores
+                        scoreValues.push(_minimax(true, true, _placeMarker(gameState, index, "o")));
+                        scoreIndexes.push(index);
+
+                    }
+                })
+                //Gets best score
+                let best = +Infinity;
+                scoreValues.forEach((value) => {
+                    best = Math.min(best, value)
+                })
+                //Returns a array with the best score and its position
+                console.log(`BEST: ${best}`);
+                console.log(`SCORE VALUES: ${scoreValues}`);
+                //Returns best score if call is recursive or best position if call is NOT recursive
+                if (isRecursive) {
+                    return best;
+                } else {
+                    console.log(`SCORE INDEXES: ${scoreIndexes}`);
+                    return scoreIndexes[scoreValues.indexOf(best)]
+                }
+            }
+
+        
+        };
 
     };
 
@@ -126,7 +261,7 @@ const game = (function () {
         start: () => {
             board.clear();
             const player1 = playerFactory(prompt("Player 1 name:", "Player 1"), "human", "x");
-            const player2 = playerFactory(prompt("Player 2 name:", "Player 2"), "computer", "o");
+            const player2 = playerFactory(prompt("Player 2 name:", "Player 2"), "computer", "o", "unbeatable");
             const numberOfWins = Number(prompt("How much victories?", 1));
             console.log(player1);
             console.log(player2);
