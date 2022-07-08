@@ -30,6 +30,10 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	height: 100vh;
+	display: grid;
+	grid-template-rows: 1fr 50px;
+	
 }
 ol, ul {
 	list-style: none;
@@ -45,4 +49,39 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+
+/* COLORS */
+
+:root {
+	--black: #474747;
+	--white: #fff;
+}
+
+/* COMMON STYLES */
+
+.inactive {
+	display: none;
+}
+
+:root {
+	font-family: sans-serif;
+}
+
+/* MAIN MENU SCREEN */
+
+/* GAME SCREEN */
+
+/* FOOTER */
+
+footer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--black);
+	color: var(--white);
+}
+
+a {
+	color: var(--white);
 }
