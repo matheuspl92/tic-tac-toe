@@ -51,14 +51,14 @@ table {
 	border-spacing: 0;
 }
 
-/* COLORS */
+/* 1. COLORS */
 
 :root {
-	--black: #474747;
+	--black: #000000;
 	--white: #fff;
 }
 
-/* COMMON STYLES */
+/* 2. COMMON STYLES */
 
 .inactive {
 	display: none;
@@ -68,11 +68,72 @@ table {
 	font-family: sans-serif;
 }
 
-/* MAIN MENU SCREEN */
+/* 3. MAIN MENU SCREEN */
 
-/* GAME SCREEN */
+.main-menu-container {
+	display: grid;
+	margin: 100px;
+}
 
-/* FOOTER */
+/* 3.1 Title container */
+
+.title-container {
+	display:flex;
+	align-items: center;
+	justify-content: center;
+}
+
+h1 {
+	font-size: 6em;
+	font-weight: bold;
+	color: var(--white);
+	background: var(--black);
+	padding: 0.5ch 1ch;
+	border-radius: 2ch 0.5ch;
+}
+
+/* 3.2 Settings container */
+
+.settings-container {
+	display: grid;
+	background-color: var(--black);
+	border-radius: 50px;
+}
+
+/* 3.2.1 Selection container */
+
+.selection-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+
+}
+
+.opponent-selector,
+.victories-selector {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.names-input {
+	grid-column-start: 1;
+	grid-column-end: 3;
+	display: flex;
+	align-items: center;
+	justify-content:space-evenly;
+}
+
+/* 3.2.2 Start container */
+
+.start-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* 4. GAME SCREEN */
+
+/* 5. FOOTER */
 
 footer {
 	display: flex;
