@@ -286,4 +286,4 @@ const game = (function () {
     };
 })();
 
-this.addEventListener("click", () => {game.start();})
+//this.addEventListener("click", () => {game.start();})

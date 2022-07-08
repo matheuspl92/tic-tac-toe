@@ -9,6 +9,45 @@
     <script src="./script.js" defer></script>
 </head>
 <body>
-    
+    <div class="main-menu-container">
+        <div class="title-container">
+            <h1>Tic Tac Toe</h1>
+        </div>
+        <div class="settings-container">
+            <div class="selection-container">
+                <div class="opponent-selector">
+                    <select name="" id="op-selectbox">
+                        <option value="human">Human</option>
+                        <option value="easy">Computer Easy</option>
+                        <option value="medium">Computer Medium</option>
+                        <option value="hard">Computer Hard</option>
+                        <option value="unbeatable">Computer Unbeatable</option>
+                    </select>
+                </div>
+                <div class="victories-selector">
+                    <select name="" id="vic-selectbox">
+                        <option value="1">1</option>
+                        <option value="3">3</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div class="names-input">
+                    <input type="text" name="playerOneName" id="name-input1">
+                    <input type="text" name="playerTwoName" id="name-input2">
+                </div>
+            </div>
+            <div class="start-container">
+                <button id="start-game">START GAME</button>
+            </div>
+        </div>
+    </div>
+    <div class="game-container inactive">
+        <div class="game-settings"></div>
+        <div class="game-score"></div>
+        <div class="game-board"></div>
+    </div>
+    <footer>
+        <p>Made by <a href="https://github.com/matheuspl92">matheuspl92</a>, 2022.</p>
+    </footer>
 </body>
 </html>
