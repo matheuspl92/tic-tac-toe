@@ -259,11 +259,16 @@ const game = (function () {
     };
 
     return {
-        start: () => {
+        start: (player1Name, player2Name, player2Type, victories) => {
             board.clear();
-            const player1 = playerFactory(prompt("Player 1 name:", "Player 1"), "human", "x");
-            const player2 = playerFactory(prompt("Player 2 name:", "Player 2"), "computer", "o", "unbeatable");
-            const numberOfWins = Number(prompt("How much victories?", 1));
+            const player1 = playerFactory(player1Name, "human", "x");
+            let player2;
+            if (player2Type === 'human') {
+                player2 = playerFactory(player2Name, player2Type, "o");
+            } else {
+                player2 = playerFactory(player2Name, "computer", "o", player2Type);
+            }
+            const numberOfWins = Number(victories);
             console.log(player1);
             console.log(player2);
 
@@ -289,12 +294,31 @@ const game = (function () {
 
 const display = (function () {
 
+    const opSelectbox = document.getElementById('op-selectbox');
+    const vicSelectbox = document.getElementById('vic-selectbox');
+    const nameInput1 = document.getElementById('name-input1');
+    const nameInput2 = document.getElementById('name-input2');
+
     const startButton = document.getElementById("start-game");
     startButton.addEventListener("click", () => {
+        game.start(nameInput1.value, nameInput2.value, opSelectbox.value, vicSelectbox.value);
+
+        //Screen transition
         const mainContainer = document.querySelector(".main-menu-container");
         mainContainer.classList.add("inactive");
         const gameContainer = document.querySelector(".game-container");
         gameContainer.classList.remove("inactive");
     })
+
+    const returnButton = document.getElementById("return-main-menu");
+    returnButton.addEventListener("click", () => {
+
+        //Screen transition
+        const mainContainer = document.querySelector(".main-menu-container");
+        mainContainer.classList.remove("inactive");
+        const gameContainer = document.querySelector(".game-container");
+        gameContainer.classList.add("inactive");
+    })
+
 })();
 //this.addEventListener("click", () => {game.start();})

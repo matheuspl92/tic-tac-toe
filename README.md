@@ -41,6 +41,10 @@ OK! scoreState variable
 Add event listeners to all buttons
 #start-game
 #return-main-menu
+#op-selectbox
+#vic-selectbox
+#name-input1
+#name-input2
 
 Add event listeners to all game board cells
 
@@ -51,3 +55,5 @@ Function that displays game score
 Function that displays round winner
 
 Function that displays game winner
+
+player1Name, player2Name, player2Type, player2Difficulty, numberOfWins
