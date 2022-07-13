@@ -39,8 +39,8 @@ OK! scoreState variable
 > Display Module
 
 Add event listeners to all buttons
-#start-game
-#return-main-menu
+OK! #start-game
+OK! #return-main-menu
 #op-selectbox
 #vic-selectbox
 #name-input1
