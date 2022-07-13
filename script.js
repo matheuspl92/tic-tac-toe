@@ -70,14 +70,20 @@ const board = (function () {
 
 const game = (function () {
 
-    const _moveHuman = (player) => {
-        const position = prompt(`${player.name}, what is your move?`);
+    let player1;
+    let player2;
+    let numberOfWins;
+    let isPlayer1Turn;
+
+    const _moveHuman = (player, position) => {
+        //const position = prompt(`${player.name}, what is your move?`);
         if(board.isOccupied(position)){
-            _moveHuman(player);
+            _moveHuman(player, position);
         } else {
             board.set(player.marker, position);
         }
         console.log(board.get());
+        display.update();
     };
 
     const _getRandomPosition = () => {
@@ -253,26 +259,39 @@ const game = (function () {
     const _checkScore = (player) => {
         console.log(`CHECK SCORE: ${board.checkState()}`);
         if(player.marker === board.checkState()){
+            ++player.score;
             console.log(`${player.name} wins a round!`);
-            return ++player.score;
+            console.log(player1.score);
+            console.log(player2.score);
+            board.clear();
+            display.update();
+            _checkWinner(player);
+            isPlayer1Turn = true;
         }
     };
+
+    const _checkWinner = (player) => {
+        if(player.score === numberOfWins){
+            console.log(`${player.name} HAS WON THE GAME!`);
+        };
+    }
 
     return {
         start: (player1Name, player2Name, player2Type, victories) => {
             board.clear();
-            const player1 = playerFactory(player1Name, "human", "x");
-            let player2;
+            player1 = playerFactory(player1Name, "human", "x");
             if (player2Type === 'human') {
                 player2 = playerFactory(player2Name, player2Type, "o");
             } else {
                 player2 = playerFactory(player2Name, "computer", "o", player2Type);
             }
-            const numberOfWins = Number(victories);
+            numberOfWins = Number(victories);
+            isPlayer1Turn = true;
+            turnCounter = 1;
             console.log(player1);
             console.log(player2);
 
-            for (let i = 0; i < 100; i++) {
+            /*for (let i = 0; i < 100; i++) {
                 const winner = _round(player1, player2);
                 if (winner) {
                     console.log(typeof winner.score);
@@ -286,9 +305,25 @@ const game = (function () {
                 console.log(player1.score);
                 console.log(player2.score);
                 board.clear();
-            }
+            }*/
             
         },
+
+        turn: (position) => {
+            if(isPlayer1Turn){
+                isPlayer1Turn = false;
+                _moveHuman(player1, position);
+                _checkScore(player1);
+            } else {
+                if(player2.type === 'human'){
+                    _moveHuman(player2, position);
+                    
+                }
+                isPlayer1Turn = true;
+                _checkScore(player2);
+            }
+
+        }
     };
 })();
 
@@ -319,6 +354,30 @@ const display = (function () {
         const gameContainer = document.querySelector(".game-container");
         gameContainer.classList.add("inactive");
     })
+
+    const boardCells = document.getElementsByClassName("grid-cell");
+    for (const cell of boardCells) {
+       cell.addEventListener("click", (e) => {
+        console.log(`${e.target.id} CLICKED!`);
+        game.turn(e.target.dataset.index)
+    }) 
+    }
+
+    return {
+        update: () => {
+            console.log("DISPLAY UPDATED");
+            const boardState = board.get();
+            for(let i = 0; i < boardCells.length; i++){
+                if (boardState[i] !== 0) {
+                    boardCells[i].innerHTML = "";
+                    boardCells[i].innerHTML = boardState[i];
+                } else {
+                    boardCells[i].innerHTML = "";
+                }
+            }
+        }
+
+    }
 
 })();
 //this.addEventListener("click", () => {game.start();})
