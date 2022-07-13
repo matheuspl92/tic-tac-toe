@@ -35,3 +35,19 @@ OK! Function that checks if a game has ended and returns who won
 OK! Function that reads a array and for each 0 it creates a new array with a marker in its place
 
 OK! scoreState variable
+
+> Display Module
+
+Add event listeners to all buttons
+#start-game
+#return-main-menu
+
+Add event listeners to all game board cells
+
+Function that displays board state
+
+Function that displays game score
+
+Function that displays round winner
+
+Function that displays game winner

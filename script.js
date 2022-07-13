@@ -4,6 +4,7 @@ const playerFactory = (name, type, marker, difficulty) => {
 };
 
 const board = (function () {
+
     const boardArray = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
     return {
@@ -286,4 +287,14 @@ const game = (function () {
     };
 })();
 
+const display = (function () {
+
+    const startButton = document.getElementById("start-game");
+    startButton.addEventListener("click", () => {
+        const mainContainer = document.querySelector(".main-menu-container");
+        mainContainer.classList.add("inactive");
+        const gameContainer = document.querySelector(".game-container");
+        gameContainer.classList.remove("inactive");
+    })
+})();
 //this.addEventListener("click", () => {game.start();})
