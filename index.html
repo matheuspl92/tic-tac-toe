@@ -9,7 +9,7 @@
     <script src="./script.js" defer></script>
 </head>
 <body>
-    <div class="main-menu-container">
+    <div class="main-menu-container inactive">
         <div class="title-container">
             <h1>Tic Tac Toe</h1>
         </div>
@@ -32,8 +32,8 @@
                     </select>
                 </div>
                 <div class="names-input">
-                    <input type="text" name="playerOneName" id="name-input1">
-                    <input type="text" name="playerTwoName" id="name-input2">
+                    <input type="text" name="playerOneName" id="name-input1" placeholder="Player 1">
+                    <input type="text" name="playerTwoName" id="name-input2" placeholder="Player 2">
                 </div>
             </div>
             <div class="start-container">
@@ -41,10 +41,26 @@
             </div>
         </div>
     </div>
-    <div class="game-container inactive">
-        <div class="game-settings"></div>
-        <div class="game-score"></div>
-        <div class="game-board"></div>
+    <div class="game-container">
+        <div class="game-settings">
+            <button id="return-main-menu">RETURN</button>
+        </div>
+        <div class="game-score">
+            <div class="player-one-label">Player 1</div>
+            <div class="score-label">0 - 0</div>
+            <div class="player-two-label">Player 2</div>
+        </div>
+        <div class="game-board">
+            <div class="grid-cell" id="cell1"></div>
+            <div class="grid-cell" id="cell2"></div>
+            <div class="grid-cell" id="cell3"></div>
+            <div class="grid-cell" id="cell4"></div>
+            <div class="grid-cell" id="cell5"></div>
+            <div class="grid-cell" id="cell6"></div>
+            <div class="grid-cell" id="cell7"></div>
+            <div class="grid-cell" id="cell8"></div>
+            <div class="grid-cell" id="cell9"></div>
+        </div>
     </div>
     <footer>
         <p>Made by <a href="https://github.com/matheuspl92">matheuspl92</a>, 2022.</p>

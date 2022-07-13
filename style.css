@@ -60,10 +60,6 @@ table {
 
 /* 2. COMMON STYLES */
 
-.inactive {
-	display: none;
-}
-
 :root {
 	font-family: sans-serif;
 }
@@ -133,6 +129,86 @@ h1 {
 
 /* 4. GAME SCREEN */
 
+.game-container {
+	display: grid;
+	grid-template-rows: 1fr 1fr 8fr;
+	width: 700px;
+	justify-self: center;
+}
+
+/* 4.1 Game header */
+
+.game-settings {
+	display: flex;
+	align-items: end;
+}
+
+.game-score {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+}
+
+.player-one-label,
+.player-two-label,
+.score-label {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: bold;
+	font-size: 2em;
+}
+
+.score-label {
+	font-size: 4em;
+}
+
+/* 4.2 Game board */
+
+.game-board {
+	display: grid;
+	grid-template-rows: repeat(3, 1fr);
+	grid-template-columns: repeat(3, 1fr);
+	margin: 50px;
+}
+
+#cell2,
+#cell5,
+#cell8 {
+	border-left: 10px solid var(--black);
+	border-right: 10px solid var(--black);
+} 
+
+#cell4,
+#cell5,
+#cell6 {
+	border-top: 10px solid var(--black);
+	border-bottom: 10px solid var(--black);
+} 
+
+#cell1,
+#cell2,
+#cell3 {
+	margin-top: 20px;
+}
+
+#cell7,
+#cell8,
+#cell9 {
+	margin-bottom: 20px;
+}
+
+#cell1,
+#cell4,
+#cell7 {
+	margin-left: 20px;
+}
+
+#cell3,
+#cell6,
+#cell9 {
+	margin-right: 20px;
+}
+
 /* 5. FOOTER */
 
 footer {
@@ -145,4 +221,10 @@ footer {
 
 a {
 	color: var(--white);
+}
+
+/* 6. DISPLAY CONTROL */
+
+.inactive {
+	display: none;
 }
