@@ -241,7 +241,9 @@ a {
 
 /* The Modal (background) */
 .modal {
-	display: none;
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0s, opacity 0.5s linear;
 	/* Hidden by default */
 	position: fixed;
 	/* Stay in place */

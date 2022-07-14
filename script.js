@@ -392,13 +392,15 @@ const display = (function () {
 
     // When the user clicks on <span> (x), close the modal
     span.onclick = function () {
-        modal.style.display = "none";
+        modal.style.visibility = "hidden";
+        modal.style.opacity = "0";
     }
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
         if (event.target == modal) {
-            modal.style.display = "none";
+            modal.style.visibility = "hidden";
+            modal.style.opacity = "0";
         }
     }
 
@@ -420,7 +422,8 @@ const display = (function () {
         },
 
         showModal: (type) => {
-            modal.style.display = "block";
+            modal.style.visibility = "visible";
+            modal.style.opacity = "1";
         }
 
     }
