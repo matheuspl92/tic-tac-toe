@@ -328,6 +328,14 @@ const game = (function () {
 
         getScore: () => {
             return `${player1.score} - ${player2.score}`
+        },
+
+        getPlayerNames: (number) => {
+            if (number === 1) {
+                return player1.name;
+            } else {
+                return player2.name;
+            }
         }
     };
 })();
@@ -377,6 +385,8 @@ const display = (function () {
     return {
         update: () => {
             console.log("DISPLAY UPDATED");
+            player1Label.innerHTML = game.getPlayerNames(1);
+            player2Label.innerHTML = game.getPlayerNames(2);
             scoreLabel.innerHTML = game.getScore();
             const boardState = board.get();
             for(let i = 0; i < boardCells.length; i++){
