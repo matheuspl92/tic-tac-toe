@@ -46,11 +46,11 @@ OK! #return-main-menu
 #name-input1
 #name-input2
 
-Add event listeners to all game board cells
+OK! Add event listeners to all game board cells
 
-Function that displays board state
+OK! Function that displays board state
 
-Function that displays game score
+OK! Function that displays game score
 
 Function that displays round winner
 

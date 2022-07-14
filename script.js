@@ -290,6 +290,7 @@ const game = (function () {
             turnCounter = 1;
             console.log(player1);
             console.log(player2);
+            display.update();
 
             /*for (let i = 0; i < 100; i++) {
                 const winner = _round(player1, player2);
@@ -323,16 +324,26 @@ const game = (function () {
                 _checkScore(player2);
             }
 
+        },
+
+        getScore: () => {
+            return `${player1.score} - ${player2.score}`
         }
     };
 })();
 
 const display = (function () {
 
+    //Input elements
     const opSelectbox = document.getElementById('op-selectbox');
     const vicSelectbox = document.getElementById('vic-selectbox');
     const nameInput1 = document.getElementById('name-input1');
     const nameInput2 = document.getElementById('name-input2');
+
+    //Label elements
+    const player1Label = document.querySelector(".player-one-label");
+    const player2Label = document.querySelector(".player-two-label");
+    const scoreLabel = document.querySelector(".score-label");
 
     const startButton = document.getElementById("start-game");
     startButton.addEventListener("click", () => {
@@ -366,6 +377,7 @@ const display = (function () {
     return {
         update: () => {
             console.log("DISPLAY UPDATED");
+            scoreLabel.innerHTML = game.getScore();
             const boardState = board.get();
             for(let i = 0; i < boardCells.length; i++){
                 if (boardState[i] !== 0) {
