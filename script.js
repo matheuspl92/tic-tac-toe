@@ -273,6 +273,7 @@ const game = (function () {
     const _checkWinner = (player) => {
         if(player.score === numberOfWins){
             console.log(`${player.name} HAS WON THE GAME!`);
+            display.showModal();
         };
     }
 
@@ -382,6 +383,25 @@ const display = (function () {
     }) 
     }
 
+    //MODAL SCRIPT
+
+    let modal = document.getElementById("myModal");
+
+    // Get the <span> element that closes the modal
+    let span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
     return {
         update: () => {
             console.log("DISPLAY UPDATED");
@@ -397,6 +417,10 @@ const display = (function () {
                     boardCells[i].innerHTML = "";
                 }
             }
+        },
+
+        showModal: (type) => {
+            modal.style.display = "block";
         }
 
     }
