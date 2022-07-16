@@ -74,16 +74,29 @@ const game = (function () {
     let player2;
     let numberOfWins;
     let isPlayer1Turn;
+    let isWon;
+
+    const _flipTurn = () => {
+        if(isPlayer1Turn === true){
+            isPlayer1Turn = false;
+        } else {
+            isPlayer1Turn = true;
+        }
+    };
 
     const _moveHuman = (player, position) => {
         //const position = prompt(`${player.name}, what is your move?`);
-        if(board.isOccupied(position)){
-            _moveHuman(player, position);
-        } else {
-            board.set(player.marker, position);
+        if (board.checkState() === 0) {
+            if(board.isOccupied(position)){
+                //_moveHuman(player, position);
+                return
+            } else {
+                board.set(player.marker, position);
+                _flipTurn();
+            }
+            console.log(board.get());
+            display.update();
         }
-        console.log(board.get());
-        display.update();
     };
 
     const _getRandomPosition = () => {
@@ -93,21 +106,31 @@ const game = (function () {
     }
 
     const _moveComputer = (player) => {
-        if(player.difficulty === "easy"){
-            const position = _getRandomPosition();
-
-            if(board.isOccupied(position)){
-                _moveComputer(player);
-            } else {
+        console.log('CONDITION 3 SATISFIED!');
+        console.log(player.difficulty);
+        if (board.checkState() === 0) {
+            if(player.difficulty === "easy"){
+                console.log('CONDITION 4 SATISFIED!');
+                const position = _getRandomPosition();
+    
+                if(board.isOccupied(position)){
+                    _moveComputer(player);
+                } else {
+                    board.set(player.marker, position);
+                    _flipTurn();
+                    
+                }
+                console.log(board.get());
+                display.update();
+    
+            } else if(player.difficulty === "unbeatable"){
+                let position = _minimax(false, false, board.get());
+                console.log(`POSITION: ${position}`);
                 board.set(player.marker, position);
+                _flipTurn();
+                console.log(board.get());
+                display.update();
             }
-            console.log(board.get());
-
-        } else if(player.difficulty === "unbeatable"){
-            const position = _minimax(false, false, board.get());
-            console.log(`POSITION: ${position}`);
-            board.set(player.marker, position);
-            console.log(board.get());
         }
         
        /* if(board.isOccupied(position)){
@@ -164,15 +187,15 @@ const game = (function () {
         function _placeMarker(oldGameState, position, marker) {
             let newGameState = oldGameState.slice();
             newGameState[position] = marker;
-            console.log(newGameState);
+            //console.log(newGameState);
             return newGameState;
         }
 
         //Minimax algorithm
         function _minimax(isRecursive, isMaximizing, gameState) {
-            console.log(`ENTERED MINIMAX: ${isMaximizing}`)
+            //console.log(`ENTERED MINIMAX: ${isMaximizing}`)
             if(_gameWinner(gameState)){
-                console.log(`GAME SCORE: ${_score(_gameWinner(gameState))}`);
+                //console.log(`GAME SCORE: ${_score(_gameWinner(gameState))}`);
                 return _score(_gameWinner(gameState))}
 
             let scoreValues = [];
@@ -193,13 +216,13 @@ const game = (function () {
                     best = Math.max(best, value);
                 })
                 //Returns a array with the best score and its position
-                console.log(`BEST: ${best}`);
-                console.log(`SCORE VALUES: ${scoreValues}`);
+                //console.log(`BEST: ${best}`);
+                //console.log(`SCORE VALUES: ${scoreValues}`);
                 //Returns best score if call is recursive or best position if call is NOT recursive
                 if (isRecursive) {
                     return best;
                 } else {
-                    console.log(`SCORE INDEXES: ${scoreIndexes}`);
+                    //console.log(`SCORE INDEXES: ${scoreIndexes}`);
                     return scoreIndexes[scoreValues.indexOf(best)];
                 }
 
@@ -219,13 +242,13 @@ const game = (function () {
                     best = Math.min(best, value)
                 })
                 //Returns a array with the best score and its position
-                console.log(`BEST: ${best}`);
-                console.log(`SCORE VALUES: ${scoreValues}`);
+                //console.log(`BEST: ${best}`);
+                //console.log(`SCORE VALUES: ${scoreValues}`);
                 //Returns best score if call is recursive or best position if call is NOT recursive
                 if (isRecursive) {
                     return best;
                 } else {
-                    console.log(`SCORE INDEXES: ${scoreIndexes}`);
+                    //console.log(`SCORE INDEXES: ${scoreIndexes}`);
                     return scoreIndexes[scoreValues.indexOf(best)]
                 }
             }
@@ -234,27 +257,6 @@ const game = (function () {
         };
 
     };
-
-    const _round = (player1, player2) => {
-
-        for(let i = 0; i < 9; i++) {
-            if(i%2 === 0){
-                _moveHuman(player1);
-                if(_checkScore(player1)){return player1};
-            } else {
-                if(player2.type === "human"){
-                    _moveHuman(player2);
-                    if(_checkScore(player2)){return player2};
-
-                } else if(player2.type === "computer") {
-                    _moveComputer(player2);
-                    if(_checkScore(player2)){return player2};
-                }
-            }
-        }
-                
-    }
-
 
     const _checkScore = (player) => {
         console.log(`CHECK SCORE: ${board.checkState()}`);
@@ -267,6 +269,7 @@ const game = (function () {
             display.update();
             _checkWinner(player);
             isPlayer1Turn = true;
+            isWon = true;
         }
     };
 
@@ -276,6 +279,30 @@ const game = (function () {
             display.showModal(player.name);
         };
     }
+
+    const _turnControl = (position) => {
+        if(isPlayer1Turn){
+            isWon = false;
+            //isPlayer1Turn = false;
+            _moveHuman(player1, position);
+            _checkScore(player1);
+            console.log(board.checkState())
+            if(player2.type !== 'human' && !isWon){
+                console.log('CONDITION 1 SATISFIED!');
+                _turnControl();
+            }
+        } else {
+            //isPlayer1Turn = true;
+            if (player2.type === "human") {
+                _moveHuman(player2, position);
+            } else {
+                console.log('CONDITION 2 SATISFIED!');
+                _moveComputer(player2);
+            }
+            _checkScore(player2);
+        }
+    };
+
 
     return {
         start: (player1Name, player2Name, player2Type, victories) => {
@@ -288,6 +315,7 @@ const game = (function () {
             }
             numberOfWins = Number(victories);
             isPlayer1Turn = true;
+            isWon = false;
             turnCounter = 1;
             console.log(player1);
             console.log(player2);
@@ -312,18 +340,7 @@ const game = (function () {
         },
 
         turn: (position) => {
-            if(isPlayer1Turn){
-                isPlayer1Turn = false;
-                _moveHuman(player1, position);
-                _checkScore(player1);
-            } else {
-                if(player2.type === 'human'){
-                    _moveHuman(player2, position);
-                    
-                }
-                isPlayer1Turn = true;
-                _checkScore(player2);
-            }
+            _turnControl(position);
 
         },
 
@@ -379,7 +396,7 @@ const display = (function () {
     for (const cell of boardCells) {
        cell.addEventListener("click", (e) => {
         console.log(`${e.target.id} CLICKED!`);
-        game.turn(e.target.dataset.index)
+        game.turn(e.target.dataset.index);
     }) 
     }
 

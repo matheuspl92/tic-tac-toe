@@ -54,6 +54,13 @@ OK! Function that displays game score
 
 Function that displays round winner
 
-Function that displays game winner
+OK! Function that displays game winner
+
+OK! Make an easy computer play the updated game
+Make a medium computer play the updated game
+Make a hard computer play the updated game
+OK! Make an unbeatable computer play the updated game
+
+Make a draw end the round and start a new one
 
 player1Name, player2Name, player2Type, player2Difficulty, numberOfWins
