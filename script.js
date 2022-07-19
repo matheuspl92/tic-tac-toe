@@ -445,4 +445,3 @@ const display = (function () {
     }
 
 })();
-//this.addEventListener("click", () => {game.start();})
