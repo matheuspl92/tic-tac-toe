@@ -33,6 +33,7 @@ body {
 	height: 100vh;
 	display: grid;
 	grid-template-rows: 1fr 50px;
+	background: linear-gradient(var(--blue3), var(--blue2));
 	
 }
 ol, ul {
@@ -55,7 +56,11 @@ table {
 
 :root {
 	--black: #000000;
+	--gray1: #727272;
 	--white: #fff;
+	--blue1: #76c5ff;
+	--blue2: #f1f9ff;
+	--blue3: #bde3ff;
 }
 
 /* 2. COMMON STYLES */
@@ -64,11 +69,17 @@ table {
 	font-family: sans-serif;
 }
 
+button:hover {
+	cursor: pointer;
+}
+
 /* 3. MAIN MENU SCREEN */
 
 .main-menu-container {
 	display: grid;
-	margin: 100px;
+	margin: 50px;
+	width: 700px;
+	justify-self: center;
 }
 
 /* 3.1 Title container */
@@ -82,18 +93,18 @@ table {
 h1 {
 	font-size: 6em;
 	font-weight: bold;
-	color: var(--white);
-	background: var(--black);
-	padding: 0.5ch 1ch;
-	border-radius: 2ch 0.5ch;
+	color: var(--blue1);
+	text-shadow: 2px 2px black;
 }
 
 /* 3.2 Settings container */
 
 .settings-container {
 	display: grid;
-	background-color: var(--black);
+	background-color: var(--white);
+	border: 2px solid var(--blue1);
 	border-radius: 50px;
+	box-shadow: 0px 0px 10px var(--blue1);
 }
 
 /* 3.2.1 Selection container */
@@ -140,12 +151,37 @@ h1 {
 
 .game-settings {
 	display: flex;
-	align-items: end;
+	align-items: center;
+	padding: 5px
+}
+
+#return-main-menu {
+	color: var(--white);
+	font-weight: bold;
+	font-size: 1.25em;
+	background: var(--blue1);
+	border: 2px solid var(--blue1);
+	border-radius: 10px;
+	box-shadow: 0px 0px 5px var(--blue1);
+	padding: 10px 20px;
+}
+
+#return-main-menu:hover {
+	filter: brightness(90%);
+}
+
+#return-main-menu:active {
+	filter: brightness(100%);
+	box-shadow: 0px 0px 10px var(--blue2);
 }
 
 .game-score {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
+	background: var(--blue2);
+	border: 5px solid var(--blue1);
+	border-radius: 20px;
+	box-shadow: 0px 0px 20px var(--blue1);
 }
 
 .player-one-label,
@@ -154,6 +190,7 @@ h1 {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	color: var(--gray1);
 	font-weight: bold;
 	font-size: 2em;
 }
@@ -175,22 +212,28 @@ h1 {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	color: var(--gray1);
 	font-size: 9em;
 	font-weight: bold;
+}
+
+.grid-cell:hover {
+	cursor: pointer;
+	background-color: rgb(0 163 255 / 10%);
 }
 
 #cell2,
 #cell5,
 #cell8 {
-	border-left: 10px solid var(--black);
-	border-right: 10px solid var(--black);
+	border-left: 10px solid var(--gray1);
+	border-right: 10px solid var(--gray1);
 } 
 
 #cell4,
 #cell5,
 #cell6 {
-	border-top: 10px solid var(--black);
-	border-bottom: 10px solid var(--black);
+	border-top: 10px solid var(--gray1);
+	border-bottom: 10px solid var(--gray1);
 } 
 
 #cell1,
@@ -223,8 +266,9 @@ footer {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: var(--black);
+	background-color: var(--blue1);
 	color: var(--white);
+	font-weight: bold;
 }
 
 a {
@@ -249,7 +293,7 @@ a {
 	/* Stay in place */
 	z-index: 1;
 	/* Sit on top */
-	padding-top: 100px;
+	padding-top: 20%;
 	/* Location of the box */
 	left: 0;
 	top: 0;
@@ -267,9 +311,16 @@ a {
 
 /* Modal Content */
 .modal-content {
-	background-color: #fefefe;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: var(--gray1);
+	font-size: 4em;
+	font-weight: bold;
+	background-color: var(--blue3);
 	margin: auto;
-	padding: 20px;
-	border: 1px solid #888;
+	padding: 100px 0px;
+	border: 5px solid var(--blue1);
+	border-radius: 100px;
 	width: 80%;
 }
