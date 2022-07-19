@@ -108,10 +108,9 @@ const game = (function () {
     const _moveComputer = (player) => {
         console.log('CONDITION 3 SATISFIED!');
         console.log(player.difficulty);
-        if (board.checkState() === 0) {
-            if(player.difficulty === "easy"){
-                console.log('CONDITION 4 SATISFIED!');
-                const position = _getRandomPosition();
+
+        function easyPlay() {
+            const position = _getRandomPosition();
     
                 if(board.isOccupied(position)){
                     _moveComputer(player);
@@ -122,15 +121,62 @@ const game = (function () {
                 }
                 console.log(board.get());
                 display.update();
-    
-            } else if(player.difficulty === "unbeatable"){
-                let position = _minimax(false, false, board.get());
+        };
+
+        function unbeatablePlay() {
+            let position = _minimax(false, false, board.get());
                 console.log(`POSITION: ${position}`);
                 board.set(player.marker, position);
                 _flipTurn();
                 console.log(board.get());
                 display.update();
+        };
+
+        function mediumPlay() {
+            const aux = Math.floor(Math.random() * (3)) + 1; // Returns a random integer between 1 and 3 (both included)
+            if(aux === 3) {
+                unbeatablePlay();
+            } else {
+                easyPlay();
             }
+        };
+
+        function hardPlay() {
+            const random = Math.floor(Math.random() * (3)) + 1; // Returns a random integer between 1 and 3 (both included)
+            if(random >= 2) {
+                unbeatablePlay();
+            } else {
+                easyPlay();
+            }
+        };
+        if (board.checkState() === 0) {
+            switch (player.difficulty) {
+                case "easy":
+                    easyPlay();
+                    break;
+
+                case "unbeatable":
+                    unbeatablePlay();
+                    break;
+                    
+                case "medium":
+                    mediumPlay();
+                    break;
+
+                case "hard":
+                    hardPlay();
+                    break;
+
+                default:
+                    break;
+            }/*
+            if(player.difficulty === "easy"){
+                console.log('CONDITION 4 SATISFIED!');
+                easyPlay();
+                    
+            } else if(player.difficulty === "unbeatable"){
+                unbeatablePlay();
+            }*/
         }
         
        /* if(board.isOccupied(position)){

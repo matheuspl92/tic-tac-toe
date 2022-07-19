@@ -58,9 +58,9 @@ OK! Function that displays game winner
 
 OK! Make an easy computer play the updated game
 
-Make a medium computer play the updated game
+OK! Make a medium computer play the updated game
 
-Make a hard computer play the updated game
+OK! Make a hard computer play the updated game
 
 OK! Make an unbeatable computer play the updated game
 
