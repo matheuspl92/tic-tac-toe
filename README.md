@@ -64,7 +64,7 @@ OK! Make a hard computer play the updated game
 
 OK! Make an unbeatable computer play the updated game
 
-Make a draw end the round and start a new one
+OK! Make a draw end the round and start a new one
 
 Return to main menu after a win
 

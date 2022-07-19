@@ -74,7 +74,7 @@ const game = (function () {
     let player2;
     let numberOfWins;
     let isPlayer1Turn;
-    let isWon;
+    let isFinished;
 
     const _flipTurn = () => {
         if(isPlayer1Turn === true){
@@ -158,7 +158,7 @@ const game = (function () {
                 case "unbeatable":
                     unbeatablePlay();
                     break;
-                    
+
                 case "medium":
                     mediumPlay();
                     break;
@@ -306,7 +306,8 @@ const game = (function () {
 
     const _checkScore = (player) => {
         console.log(`CHECK SCORE: ${board.checkState()}`);
-        if(player.marker === board.checkState()){
+        const currentState = board.checkState();
+        if(player.marker === currentState){
             ++player.score;
             console.log(`${player.name} wins a round!`);
             console.log(player1.score);
@@ -315,7 +316,13 @@ const game = (function () {
             display.update();
             _checkWinner(player);
             isPlayer1Turn = true;
-            isWon = true;
+            isFinished = true;
+        } else if(currentState === "draw") {
+            console.log(`It's a draw!`);
+            board.clear();
+            display.update();
+            isPlayer1Turn = true;
+            isFinished = true;
         }
     };
 
@@ -328,12 +335,12 @@ const game = (function () {
 
     const _turnControl = (position) => {
         if(isPlayer1Turn){
-            isWon = false;
+            isFinished = false;
             //isPlayer1Turn = false;
             _moveHuman(player1, position);
             _checkScore(player1);
             console.log(board.checkState())
-            if(player2.type !== 'human' && !isWon){
+            if(player2.type !== 'human' && !isFinished){
                 console.log('CONDITION 1 SATISFIED!');
                 _turnControl();
             }
@@ -361,7 +368,7 @@ const game = (function () {
             }
             numberOfWins = Number(victories);
             isPlayer1Turn = true;
-            isWon = false;
+            isFinished = false;
             turnCounter = 1;
             console.log(player1);
             console.log(player2);
