@@ -458,17 +458,29 @@ const display = (function () {
     let modal = document.getElementById("myModal");
     let modalContent = document.querySelector(".modal-content");
 
-    // When the user clicks on <span> (x), close the modal
+    // When the user clicks inside the modal, close the modal and returns to main menu
     modal.onclick = function () {
         modal.style.visibility = "hidden";
         modal.style.opacity = "0";
+
+        //Screen transition
+        const mainContainer = document.querySelector(".main-menu-container");
+        mainContainer.classList.remove("inactive");
+        const gameContainer = document.querySelector(".game-container");
+        gameContainer.classList.add("inactive");
     }
 
-    // When the user clicks anywhere outside of the modal, close it
+    // When the user clicks anywhere outside of the modal, close it and returns to main menu
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.visibility = "hidden";
             modal.style.opacity = "0";
+
+            //Screen transition
+            const mainContainer = document.querySelector(".main-menu-container");
+            mainContainer.classList.remove("inactive");
+            const gameContainer = document.querySelector(".game-container");
+            gameContainer.classList.add("inactive");
         }
     }
 
