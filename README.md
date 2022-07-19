@@ -66,6 +66,10 @@ OK! Make an unbeatable computer play the updated game
 
 OK! Make a draw end the round and start a new one
 
-Return to main menu after a win
+OK! Return to main menu after a win
+
+OK! Add a default name to players
+
+
 
 player1Name, player2Name, player2Type, player2Difficulty, numberOfWins
