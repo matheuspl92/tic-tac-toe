@@ -57,6 +57,7 @@ table {
 :root {
 	--black: #000000;
 	--gray1: #727272;
+	--gray2: #adadad;
 	--white: #fff;
 	--blue1: #76c5ff;
 	--blue2: #f1f9ff;
@@ -73,10 +74,19 @@ button:hover {
 	cursor: pointer;
 }
 
+label {
+	align-self: end;
+	color: var(--gray2);
+	font-size: .8em;
+	font-weight: bold;
+}
+
+
 /* 3. MAIN MENU SCREEN */
 
 .main-menu-container {
 	display: grid;
+	grid-template-rows: 1fr 350px;
 	margin: 50px;
 	width: 700px;
 	justify-self: center;
@@ -91,10 +101,10 @@ button:hover {
 }
 
 h1 {
-	font-size: 6em;
+	font-size: 8em;
 	font-weight: bold;
 	color: var(--blue1);
-	text-shadow: 2px 2px black;
+	text-shadow: 4px 2px var(--gray2);
 }
 
 /* 3.2 Settings container */
@@ -105,6 +115,7 @@ h1 {
 	border: 2px solid var(--blue1);
 	border-radius: 50px;
 	box-shadow: 0px 0px 10px var(--blue1);
+	padding: 15px
 }
 
 /* 3.2.1 Selection container */
@@ -125,12 +136,21 @@ h1 {
 .names-input {
 	grid-column-start: 1;
 	grid-column-end: 3;
-	display: flex;
+	display: grid;
+	grid-template-rows: 1fr 1fr;
+	grid-template-columns: 1fr 1fr;
 	align-items: center;
-	justify-content:space-evenly;
+}
+
+.names-input label {
+	margin-left: 47px;
 }
 
 input {
+	width: 250px;
+	align-self: start;
+	justify-self: center;
+	grid-row-start: 2;
 	text-align: center;
 	color: var(--gray1);
 	border: 2px solid var(--blue1);
