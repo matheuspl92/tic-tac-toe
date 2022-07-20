@@ -5,8 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic Tac Toe</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="./script.js" defer></script>
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/select.css">
+    <script src="./scripts/script.js" defer></script>
+    <script src="./scripts/select.js" defer></script>
 </head>
 <body>
     <div class="main-menu-container">
@@ -15,7 +17,7 @@
         </div>
         <div class="settings-container">
             <div class="selection-container">
-                <div class="opponent-selector">
+                <div class="opponent-selector custom-select" style="width:272px;">
                     <select name="" id="op-selectbox">
                         <option value="human">Human</option>
                         <option value="easy">Computer Easy</option>
@@ -24,7 +26,7 @@
                         <option value="unbeatable">Computer Unbeatable</option>
                     </select>
                 </div>
-                <div class="victories-selector">
+                <div class="victories-selector custom-select" style="width:272px;">
                     <select name="" id="vic-selectbox">
                         <option value="1">1</option>
                         <option value="3">3</option>

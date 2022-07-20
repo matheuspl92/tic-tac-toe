@@ -115,12 +115,12 @@ h1 {
 
 }
 
-.opponent-selector,
+/*.opponent-selector,
 .victories-selector {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-}
+}*/
 
 .names-input {
 	grid-column-start: 1;
