@@ -1,75 +1,13 @@
 # tic-tac-toe
 
-This project consists in a tic tac toe browser game.
+This project consists in a tic tac toe browser game. The main objective was to exercise code structuring and Javascript skills. As a challenge to myself I implemented the minimax algorithm to create a unbeatable AI.
 
-/////////////////////////////////////////
-
-> User Interface
-
-Game board
-Start game button
-Number of victories selector
-Opponent type selector
-AI difficult selector
-Player name input
-End game button
-
-> Game Script
-
-Game module: Has two players objects and controls the game flow.
-
-OK! Board module: Has a array with 9 items representing the play space.
-
-OK! Player objects: Every player has name, type (Human or Computer), marker and score.
-
-Computer AI module: Has 4 levels (Easy, medium, hard and perfect).
-
-Display module: Has all the DOM tied functions.
-
-> Minimax algorithm
-
-OK! Function that gives a score to the result when a game ends
-
-OK! Function that checks if a game has ended and returns who won
-
-OK! Function that reads a array and for each 0 it creates a new array with a marker in its place
-
-OK! scoreState variable
-
-> Display Module
-
-Add event listeners to all buttons
-OK! #start-game
-OK! #return-main-menu
-#op-selectbox
-#vic-selectbox
-#name-input1
-#name-input2
-
-OK! Add event listeners to all game board cells
-
-OK! Function that displays board state
-
-OK! Function that displays game score
-
-Function that displays round winner
-
-OK! Function that displays game winner
-
-OK! Make an easy computer play the updated game
-
-OK! Make a medium computer play the updated game
-
-OK! Make a hard computer play the updated game
-
-OK! Make an unbeatable computer play the updated game
-
-OK! Make a draw end the round and start a new one
-
-OK! Return to main menu after a win
-
-OK! Add a default name to players
+Skills demonstrated:
+    - Intermediate HTML, CSS and Javascript coding skills;
+    - Good understanding of complex algorithms;
+    - Good debugging skills;
+    - Good commit history;
+    - Good code structuring (Function factories, modules, private methods etc);
 
 
 
-player1Name, player2Name, player2Type, player2Difficulty, numberOfWins
