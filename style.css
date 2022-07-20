@@ -130,6 +130,26 @@ h1 {
 	justify-content:space-evenly;
 }
 
+input {
+	text-align: center;
+	color: var(--gray1);
+	border: 2px solid var(--blue1);
+	border-radius: 10px;
+	font-size: 1.25em;
+	font-weight: bold;
+	padding: 5px 0px;
+	transition: filter .2s;
+}
+
+input:hover {
+	filter: brightness(95%);
+}
+
+input:focus {
+	background: var(--blue2);
+	outline: 2px solid var(--blue1);
+}
+
 /* 3.2.2 Start container */
 
 .start-container {
