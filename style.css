@@ -138,6 +138,27 @@ h1 {
 	justify-content: center;
 }
 
+#start-game {
+	color: var(--white);
+	font-weight: bold;
+	font-size: 2em;
+	background: var(--blue1);
+	border: 2px solid var(--blue1);
+	border-radius: 30px;
+	box-shadow: 0px 0px 5px var(--blue1);
+	padding: 20px 20px;
+	transition: filter .2s;
+}
+
+#start-game:hover {
+	filter: brightness(90%);
+}
+
+#start-game:active {
+	filter: brightness(100%);
+	box-shadow: 0px 0px 10px var(--blue2);
+}
+
 /* 4. GAME SCREEN */
 
 .game-container {
@@ -164,6 +185,7 @@ h1 {
 	border-radius: 10px;
 	box-shadow: 0px 0px 5px var(--blue1);
 	padding: 10px 20px;
+	transition: filter .2s;
 }
 
 #return-main-menu:hover {
@@ -215,6 +237,7 @@ h1 {
 	color: var(--gray1);
 	font-size: 9em;
 	font-weight: bold;
+	transition: background-color .5s;
 }
 
 .grid-cell:hover {
