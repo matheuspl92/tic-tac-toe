@@ -1,5 +1,4 @@
 const playerFactory = (name, type, marker, difficulty) => {
-    console.log(`Player ${name} created!`);
     return {name, type, marker, score: 0, difficulty}
 };
 
@@ -14,14 +13,12 @@ const board = (function () {
             return copy},
 
         set: (marker, position) => {
-            console.log(`BOARD SET: ${marker} : ${position}`)
             boardArray[position] = marker},
 
         clear: () => {
             for (let i = 0; i < boardArray.length; i++) {
                 boardArray[i] = 0;
             }
-            console.log("BOARD CLEAR");
         },
 
         isOccupied: (position) => {return boardArray[position] !== 0},
@@ -94,7 +91,6 @@ const game = (function () {
                 board.set(player.marker, position);
                 _flipTurn();
             }
-            console.log(board.get());
             display.update();
         }
     };
@@ -106,8 +102,6 @@ const game = (function () {
     }
 
     const _moveComputer = (player) => {
-        console.log('CONDITION 3 SATISFIED!');
-        console.log(player.difficulty);
 
         function easyPlay() {
             const position = _getRandomPosition();
@@ -119,16 +113,13 @@ const game = (function () {
                     _flipTurn();
                     
                 }
-                console.log(board.get());
                 display.update();
         };
 
         function unbeatablePlay() {
             let position = _minimax(false, false, board.get());
-                console.log(`POSITION: ${position}`);
                 board.set(player.marker, position);
                 _flipTurn();
-                console.log(board.get());
                 display.update();
         };
 
@@ -169,23 +160,10 @@ const game = (function () {
 
                 default:
                     break;
-            }/*
-            if(player.difficulty === "easy"){
-                console.log('CONDITION 4 SATISFIED!');
-                easyPlay();
-                    
-            } else if(player.difficulty === "unbeatable"){
-                unbeatablePlay();
-            }*/
+            }
+
         }
         
-       /* if(board.isOccupied(position)){
-            _moveComputer(player);
-        } else {
-            board.set(player.marker, position);
-        }
-        console.log(board.get());*/
-
         //Minimax algorithm auxiliary functions
         function _score(marker) {
             if(marker === "x"){return 10;}
@@ -305,20 +283,15 @@ const game = (function () {
     };
 
     const _checkScore = (player) => {
-        console.log(`CHECK SCORE: ${board.checkState()}`);
         const currentState = board.checkState();
         if(player.marker === currentState){
             ++player.score;
-            console.log(`${player.name} wins a round!`);
-            console.log(player1.score);
-            console.log(player2.score);
             board.clear();
             display.update();
             _checkWinner(player);
             isPlayer1Turn = true;
             isFinished = true;
         } else if(currentState === "draw") {
-            console.log(`It's a draw!`);
             board.clear();
             display.update();
             isPlayer1Turn = true;
@@ -328,7 +301,6 @@ const game = (function () {
 
     const _checkWinner = (player) => {
         if(player.score === numberOfWins){
-            console.log(`${player.name} HAS WON THE GAME!`);
             display.showModal(player.name);
         };
     }
@@ -339,9 +311,7 @@ const game = (function () {
             //isPlayer1Turn = false;
             _moveHuman(player1, position);
             _checkScore(player1);
-            console.log(board.checkState())
             if(player2.type !== 'human' && !isFinished){
-                console.log('CONDITION 1 SATISFIED!');
                 _turnControl();
             }
         } else {
@@ -349,7 +319,6 @@ const game = (function () {
             if (player2.type === "human") {
                 _moveHuman(player2, position);
             } else {
-                console.log('CONDITION 2 SATISFIED!');
                 _moveComputer(player2);
             }
             _checkScore(player2);
@@ -370,25 +339,7 @@ const game = (function () {
             isPlayer1Turn = true;
             isFinished = false;
             turnCounter = 1;
-            console.log(player1);
-            console.log(player2);
             display.update();
-
-            /*for (let i = 0; i < 100; i++) {
-                const winner = _round(player1, player2);
-                if (winner) {
-                    console.log(typeof winner.score);
-                    console.log(typeof numberOfWins);
-                    console.log(winner.score === numberOfWins);
-                    if(winner.score === numberOfWins){
-                        console.log(`${winner.name} HAS WON THE GAME!`);
-                        return;
-                    };
-                }
-                console.log(player1.score);
-                console.log(player2.score);
-                board.clear();
-            }*/
             
         },
 
@@ -448,7 +399,6 @@ const display = (function () {
     const boardCells = document.getElementsByClassName("grid-cell");
     for (const cell of boardCells) {
        cell.addEventListener("click", (e) => {
-        console.log(`${e.target.id} CLICKED!`);
         game.turn(e.target.dataset.index);
     }) 
     }
@@ -486,7 +436,6 @@ const display = (function () {
 
     return {
         update: () => {
-            console.log("DISPLAY UPDATED");
             player1Label.innerHTML = game.getPlayerNames(1);
             player2Label.innerHTML = game.getPlayerNames(2);
             scoreLabel.innerHTML = game.getScore();
